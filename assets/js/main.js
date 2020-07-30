@@ -1,213 +1,192 @@
-/************* Main Js File ************************
-    Template Name: Taso - Personal Portfolio Template
-    Author: Tanmoy Dhar
-    Version: 1.0
-    Copyright 2018
-****************************************/
+(function ($) {
+    "use strict";
+/*--
+    Commons Variables
+-----------------------------------*/
+var windows = $(window);
+    
+/*--
+    Side Header Open & Close Functions
+----------------------------------------------------------*/
+var sideHeader = $('.side-header');
+var sideHeaderToggle = $('.side-header-toggle');
+var sideHeaderClose = $('.side-header-close');
+var sideHeaderOverlay = $('.side-menu-overlay');
 
+// Side Header Toggle
+sideHeaderToggle.on('click', function(){
+    if($(this).hasClass('toggle-close')) {
+        $(this).removeClass('toggle-close').css('width', '30px');
+        sideHeader.removeClass('side-menu-open');
+        sideHeaderOverlay.removeClass('overlay-show');
+    }else{
+        $(this).addClass('toggle-close').css('width', '22px');
+        sideHeader.addClass('side-menu-open');
+        sideHeaderOverlay.addClass('overlay-show');
+    }
+});
 
-/*==================================
+// Side Header Overlay
+sideHeaderOverlay.on('click', function(){
+    if(sideHeaderToggle.hasClass('toggle-close')) {
+        sideHeaderToggle.removeClass('toggle-close').css('width', '30px');
+        sideHeader.removeClass('side-menu-open');
+        sideHeaderOverlay.removeClass('overlay-show');
+    }else{
+        sideHeaderToggle.addClass('toggle-close').css('width', '22px');
+        sideHeader.addClass('side-menu-open');
+        sideHeaderOverlay.addClass('overlay-show');
+    }
+});
 
-        Table of Content
+// Side Header Close
+sideHeaderClose.on('click', function(){
+    if(sideHeaderToggle.hasClass('toggle-close')) {
+        sideHeaderToggle.removeClass('toggle-close').css('width', '30px');
+        sideHeader.removeClass('side-menu-open');
+        sideHeaderOverlay.removeClass('overlay-show');
+    }else{
+        sideHeaderToggle.addClass('toggle-close').css('width', '22px');
+        sideHeader.addClass('side-menu-open');
+        sideHeaderOverlay.addClass('overlay-show');
+    }
+});
 
-        1. Window Load Function
-            a. Preloader Setup
-            b. Portfolio Isotope Setup
-        2. Document Ready Function
-            a. ScrollIt Setup
-            b. Navbar Scrolling Background
-            c. Stats Counter Setup
-            d. Navbar Close On Click Mobile Responsive
-            e. Stellar Setup
-            f. Magnific Popup Setup
-            g. Blog OwlCarousel Setup
-            h. Testimonial OwlCarousel Setup
-            i. Contact Form Setup
+/*--
+    Side Submenu
+----------------------------------------------------------*/
+$('.side-menu .menu-item-has-children > a').prepend('<i class="expand menu-expand fa fa-angle-down"></i>');
+$('.side-menu .menu-item-has-children ul').slideUp();
 
-==================================*/
+$('.side-menu').on('click', 'li a, li a .menu-expand', function(e) {
+    var $a = $(this).hasClass('menu-expand') ? $(this).parent() : $(this);
+    if ($a.parent().hasClass('menu-item-has-children')) {
+        if ($a.attr('href') === '#' || $(this).hasClass('menu-expand')) {
+            if ($a.siblings('ul:visible').length > 0) {
+                $a.find('.menu-expand').removeClass('fa-angle-up').addClass('fa-angle-down');
+                $a.siblings('ul').slideUp();
+            }
+            else {
+                $(this).parents('li').siblings('li').find('.menu-expand').removeClass('fa-angle-up').addClass('fa-angle-down');
+                $(this).parents('li').siblings('li').find('ul:visible').slideUp();
+                $a.find('.menu-expand').removeClass('fa-angle-down').addClass('fa-angle-up');
+                $a.siblings('ul').slideDown();
+            }
+        }
+    }
+    if ($(this).hasClass('menu-expand') || $a.attr('href') === '#') {
+        e.preventDefault();
+        return false;
+    }
+});
+    
+/*--
+    Full Page
+----------------------------------------------------------*/
+$('#fullpage').fullpage({
+    menu: '.fullpage-menu',
+    lockAnchors: false,
+    anchors: ['home', 'about', 'service', 'portfolio', 'blog', 'contact'],
+    scrollOverflow: true,
+    navigation: true,
+    verticalCentered: false,
+    navigationTooltips: ['Home', 'About', 'Service', 'Portfolio', 'Blog', 'Contact'],
+    responsiveWidth: 991,
+});
 
-/*========Window Load Function========*/
-$(window).on("load", function() {
-
-    /*========Portfolio Isotope Setup========*/
-    if ($(".portfolio-section").length) {
-        var $elements = $(".portfolio-section");
-        $elements.isotope();
-        $(".port-filter ul li").on("click", function() {
-            $(".port-filter ul li").removeClass("filter-item");
-            $(this).addClass("filter-item");
-            var selector = $(this).attr("data-filter");
-            $(".portfolio-section").isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: "linear",
-                    queue: false,
-                },
-            });
+// FullPage Navigation Position
+function fpNavPosition(){
+    var sideHeaderWidth = $('.side-header').outerWidth();
+    var screenSize = windows.width() - sideHeaderWidth;
+    var containerSize = $('.container').outerWidth();
+    $('#fp-nav.left').css('left', ((screenSize - containerSize)/4));
+    $('#fp-nav.right').css('right', ((screenSize - containerSize)/4));
+}
+// FullPage Navigation On Mobile
+function fpNavCloseOnClickMobile(){
+    if(windows.width() < 992) {
+        $('.fullpage-menu').on('click', 'li a', function(e) {
+            $('.side-header-toggle').removeClass('toggle-close');
+            $('.side-menu-overlay').removeClass('overlay-show');
+            $('.side-header').removeClass('side-menu-open');
         });
     }
-
+}
+fpNavPosition();
+fpNavCloseOnClickMobile();
+windows.resize(function(){
+    fpNavPosition();
+    fpNavCloseOnClickMobile();
+});
+    
+/*--
+    Home Portfolio Slider
+----------------------------------------------------------*/
+$('.portfolio-slider-5').slick({
+    arrows: true,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    dots: false,
+    pauseOnFocus: false,
+    pauseOnHover: false,
+    infinite: true,
+    slidesToShow: 5,
+    prevArrow: '<button type="button" class="slick-prev">prev</button>',
+    nextArrow: '<button type="button" class="slick-next">next</button>',
+    appendArrows: '.portfolio-slider-5-nav',
+    responsive: [
+        {
+            breakpoint: 1199,
+            settings: {
+                slidesToShow: 4,
+            }
+        },
+        {
+            breakpoint: 991,
+            settings: {
+                slidesToShow: 2,
+                autoplay: true,
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 2,
+                autoplay: true,
+            }
+        },
+        {
+            breakpoint: 479,
+            settings: {
+                slidesToShow: 1,
+                autoplay: true,
+            }
+        },
+    ]
 });
 
-/*========Document Ready Function========*/
-$(function() {
 
-    "use strict";
-    var wind = $(window);
-
-    /*========ScrollIt Setup========*/
-    $.scrollIt({
-        upKey: 38, // key code to navigate to the next section
-        downKey: 40, // key code to navigate to the previous section
-        easing: 'swing', // the easing function for animation
-        scrollTime: 600, // how long (in ms) the animation takes
-        activeClass: 'active', // class given to the active nav element
-        onPageChange: null, // function(pageIndex) that is called when page is changed
-        topOffset: -15 // offste (in px) for fixed top navigation
+/*--
+    Masonry Portfolio
+----------------------------------------------------------*/
+var masonryGrid = $('.masonry-grid');
+masonryGrid.imagesLoaded( function() {
+    masonryGrid.masonry({
+        // options
+        itemSelector: '.masonry-grid [class*="col-"]',
     });
-
-    /*========Navbar Scrolling Background========*/
-    wind.on("scroll", function() {
-        var bodyScroll = wind.scrollTop(),
-            navbar = $(".navbar")
-        if (bodyScroll > 300) {
-            navbar.addClass("fixed-top");
-        } else {
-            navbar.removeClass("fixed-top");
-        }
-    });
-
-    /*========Stats Counter Setup========*/
-    (function(){
-        if($("section.counter-area").length > 0) {
-            var a = 0;
-            $(window).on('scroll', function() {
-                var oTop = $('section.counter-area').offset().top - window.innerHeight;
-                if (a == 0 && $(window).scrollTop() > oTop) {
-                    $('section.counter-area .counter-item .counter').each(function() {
-                        var $this = $(this),
-                            countTo = $this.attr('data-count');
-                        $({
-                            countNum: $this.text()
-                        }).animate({
-                            countNum: countTo
-                        }, {
-                            duration: 2000,
-                            easing: 'swing',
-                            step: function() {
-                                $this.text(Math.floor(this.countNum));
-                            },
-                            complete: function() {
-                                $this.text(this.countNum);
-                            }
-                        });
-                    });
-                    a = 1;
-                }
-            });
-        }
-
-    })();
-
-    /*========Navbar Close On Click Mobile Responsive========*/
-    $(".nav-item .nav-link").on('click', function () {
-        $(".navbar-collapse").removeClass("show");
-    });
-
-
-
-     /*========Magnific Popup Setup========*/
-     $('.portfolio .port-link').magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        gallery: {
-            enabled: true
-        }
-    });
-
-    /*========Blog OwlCarousel Setup========*/
-    $(".blogs .owl-carousel").owlCarousel({
-        loop: true,
-        margin: 30,
-        autoplay: true,
-        smartSpeed: 500,
-        responsiveClass: true,
-        dots: false,
-        responsive: {
-            0: {
-                items: 1,
-            },
-            700: {
-                items: 2,
-            },
-            1000: {
-                items: 3,
-            },
-        },
-    });
-
-      $("#testimonial-slider").owlCarousel({
-      navigation: false,
-      pagination: true,
-      slideSpeed: 800,
-      paginationSpeed: 800,
-      smartSpeed: 500,
-      autoplay: true,
-      singleItem: true,
-      dots: true,
-      loop: true,
-      responsive:{
-        0:{
-          items:1
-        },
-        767:{
-          items:1
-        },
-        1000:{
-          items:1
-        }
-      }
-    });
-      
-  /* Slider background
-  -------------------------------------------------------*/
-  $("#owl-demo").owlCarousel({
- 
-      navigation : true, // Show next and prev buttons
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      singleItem:true,
-      items:1,
-      nav:false,
-      loop:true,
-      dots:true,
-      autoplay:true
- 
-  });
- 
-
-    var wind = $(window);
-  wind.on('scroll', function () {
-      $(".bar span").each(function () {
-          var bottom_of_object =
-          $(this).offset().top + $(this).outerHeight();
-          var bottom_of_window =
-          $(window).scrollTop() + $(window).height();
-          var myVal = $(this).attr('data-width');
-          if(bottom_of_window > bottom_of_object) {
-            $(this).css({
-              width : myVal
-            });
-          }
-      });
-  });
 });
-  jQuery(window).on('load',function(){
+ 
 
+/*--
+    Custom Scroll Bar
+----------------------------------------------------------*/
+$('.custom-scroll').each(function(){
+    var ps = new PerfectScrollbar($(this)[0]);
+    if(windows.width <= 991) {
+        ps.destroy();
+    }
+});
 
-          $('.preloader').fadeOut(200);
-
-      
-  });
-
+    
+})(jQuery);	
