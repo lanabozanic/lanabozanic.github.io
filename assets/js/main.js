@@ -86,11 +86,11 @@ $('.side-menu').on('click', 'li a, li a .menu-expand', function(e) {
 $('#fullpage').fullpage({
     menu: '.fullpage-menu',
     lockAnchors: false,
-    anchors: ['home', 'about', 'service', 'portfolio', 'blog', 'contact'],
+    anchors: ['home', 'portfolio', 'blog', 'contact'],
     scrollOverflow: true,
     navigation: true,
     verticalCentered: false,
-    navigationTooltips: ['Home', 'About', 'Service', 'Portfolio', 'Blog', 'Contact'],
+    navigationTooltips: ['Home', 'Portfolio', 'Blog', 'Contact'],
     responsiveWidth: 991,
 });
 
