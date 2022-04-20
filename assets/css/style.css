@@ -46,26 +46,27 @@ html, body, .site-wrapper {
 
 /* unvisited link */
 a:link {
-  color: #342378;
+  color: #34492c;
 }
 
 /* visited link */
 a:visited {
-  color: #342378;
+  color: #34492c;
 }
 
 /* mouse over link */
 a:hover {
-  color: #863f94;
+  color: #8c9e6e;
 }
 
 /* selected link */
 a:active {
-  color: #342378;
+  color: #34492c;
 }
 
+
 body {
-  background-color: #ffffff;
+  background-color: #dfdfdf;
   font-size: 14px;
   line-height: 24px;
   font-style: normal;
@@ -83,14 +84,14 @@ h1, h2, h4, h6 {
 
 h5 {
   font-family: "Poppins", sans-serif;
-  color: #342378;
-  font-weight: 400;
+  color: #485f3f;
+  font-weight: 600;
   margin-top: 0; }
 
 h3 {
   font-family: "Poppins", sans-serif;
-  color: #342378;
-  font-weight: 400;
+  color: #406138;
+  font-weight: 320;
   margin-top: 0; }
 
 h1 {
@@ -99,10 +100,17 @@ h1 {
 
 h2 {
   font-size: 30px;
-  line-height: 36px; }
+  padding-left: 70px; 
+  font-size: 16px;
+  color: #406138;
+  font-family: "Poppins", sans-serif;
+  line-height: 30px; }
 
 h3 {
-  font-size: 24px;
+  padding-left: 70px; 
+  font-size: 16px;
+  color: #151b18;
+  font-family: "Poppins", sans-serif;
   line-height: 30px; }
 
 h4 {
@@ -110,6 +118,7 @@ h4 {
   line-height: 30px; }
 
 h5 {
+  padding-left: 70px; 
   font-size: 14px;
   line-height: 18px; }
 
@@ -721,7 +730,7 @@ div#fp-nav {
   overflow: hidden;
   border: none;
   background-color: transparent;
-  width: 30px;
+  width: 20px;
   height: 18px;
   position: relative; }
   .side-header-toggle span {
@@ -1006,17 +1015,22 @@ nav.side-menu > ul > li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 20px; }
+  margin-bottom: 10px; 
+}
   .side-header-social a {
-    color: #555555;
-    margin-right: 25px; }
+    color: #55744c;
+    margin-left: 57px;
+  margin-top: 20px }
     .side-header-social a i {
+      margin-top: 120px
       display: block;
-      font-size: 16px;
+      font-size: 26px;
+      margin-right: 10px;
       line-height: 24px; }
     .side-header-social a:hover {
       color: #333333; }
     .side-header-social a:last-child {
+      
       margin-right: 0; }
 
 /*-- Side Header Copyright --*/
@@ -1248,12 +1262,14 @@ nav.side-menu > ul > li {
 /*----------------------------------------*/
 /*-- About Image --*/
 .about-image img {
+  padding-left: 50px;
   width: 100%; }
 
 /*-- About Image --*/
 .about-content {
   padding-left: 85px; }
   .about-content .block-title {
+    padding-left: 70px; 
     font-size: 24px;
     line-height: 1;
     font-weight: 600;
@@ -1264,6 +1280,7 @@ nav.side-menu > ul > li {
       .about-content .block-title {
         margin-bottom: 20px; } }
   .about-content p {
+    padding-left: 70px; 
     letter-spacing: 0.75px; }
   @media only screen and (min-width: 1200px) and (max-width: 1599px) {
     .about-content {
@@ -1281,6 +1298,7 @@ nav.side-menu > ul > li {
 /*-- Personal Info --*/
 .personal-info {
   margin-bottom: 34px;
+  padding-left: 70px; 
   padding-top: 10px; }
   @media only screen and (max-width: 767px) {
     .personal-info {

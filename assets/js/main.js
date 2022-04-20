@@ -88,37 +88,12 @@ $('#fullpage').fullpage({
     lockAnchors: false,
     anchors: ['home', 'portfolio', 'blog', 'contact'],
     scrollOverflow: true,
-    navigation: true,
     verticalCentered: false,
     navigationTooltips: ['Home', 'Portfolio', 'Blog', 'Contact'],
     responsiveWidth: 991,
 });
 
-// FullPage Navigation Position
-function fpNavPosition(){
-    var sideHeaderWidth = $('.side-header').outerWidth();
-    var screenSize = windows.width() - sideHeaderWidth;
-    var containerSize = $('.container').outerWidth();
-    $('#fp-nav.left').css('left', ((screenSize - containerSize)/4));
-    $('#fp-nav.right').css('right', ((screenSize - containerSize)/4));
-}
-// FullPage Navigation On Mobile
-function fpNavCloseOnClickMobile(){
-    if(windows.width() < 992) {
-        $('.fullpage-menu').on('click', 'li a', function(e) {
-            $('.side-header-toggle').removeClass('toggle-close');
-            $('.side-menu-overlay').removeClass('overlay-show');
-            $('.side-header').removeClass('side-menu-open');
-        });
-    }
-}
-fpNavPosition();
-fpNavCloseOnClickMobile();
-windows.resize(function(){
-    fpNavPosition();
-    fpNavCloseOnClickMobile();
-});
-    
+
 /*--
     Home Portfolio Slider
 ----------------------------------------------------------*/
